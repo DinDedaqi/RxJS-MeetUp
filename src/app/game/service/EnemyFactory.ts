@@ -1,6 +1,6 @@
 import {ComponentFactory, ComponentFactoryResolver, ComponentRef, Injectable, ViewContainerRef} from '@angular/core';
 import {EnemyCharacterComponent} from '../enemy-character/enemy-character.component';
-import {AppSettings} from '../AppSettings';
+import {AppSettings} from '../../AppSettings';
 
 @Injectable()
 export class EnemyFactory{

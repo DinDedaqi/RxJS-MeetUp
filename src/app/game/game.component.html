@@ -1,0 +1,9 @@
+<div class="canvas"
+     [style.width.px]="canvasWidth"
+     [style.height.px]="canvasHeight">
+
+  <player-character [initialYPos]="playerYPos" [initialXPos]="playerXPos"></player-character>
+  <ng-container #enemies></ng-container>
+</div>
+<div class="score">{{score}}</div>
+<div class="lives">{{lives}}</div>

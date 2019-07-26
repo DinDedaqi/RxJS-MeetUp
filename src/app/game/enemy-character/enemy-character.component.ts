@@ -2,19 +2,22 @@ import {
   AfterViewInit,
   Component,
   ComponentFactory,
-  ComponentFactoryResolver, ComponentRef, ElementRef, EventEmitter,
-  Input, OnDestroy,
-  OnInit, Output,
+  ComponentFactoryResolver,
+  ComponentRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
 import {ICoordinates, PlayerService} from '../service/player-service';
 import {BulletComponent} from '../bullet/bullet.component';
 import {GameService} from '../service/game.service';
-import {interval, Subject} from 'rxjs';
+import {interval} from 'rxjs';
 import {BulletFactory} from '../service/BulletFactory';
-import {filter, takeUntil, tap} from 'rxjs/operators';
-import {AppSettings} from '../AppSettings';
+import {takeUntil, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'enemy-character',
@@ -51,11 +54,10 @@ export class EnemyCharacterComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   checkCollision() {
-    console.log("kind of");
     return this.playerCoordinates.xPos < this.xPos + this.width &&
       this.playerCoordinates.xPos + this.playerService.width > this.xPos &&
       this.playerCoordinates.yPos < this.yPos + this.height &&
-      this.playerCoordinates.yPos + this.playerService.height > this.yPos
+      this.playerCoordinates.yPos + this.playerService.height > this.yPos;
   }
 
   ngAfterViewInit() {
@@ -81,12 +83,12 @@ export class EnemyCharacterComponent implements OnInit, OnDestroy, AfterViewInit
     interval(2000).pipe(
       takeUntil(this.destroy),
       tap((index: number) => {
-        componentRefMap.set(index, this.bulletFactory.createBullet(this.viewContainer, this.xPos, this.yPos, false))
+        componentRefMap.set(index, this.bulletFactory.createBullet(this.viewContainer, this.xPos, this.yPos, false));
       })
     ).subscribe((index: number) => {
-        componentRefMap.get(index).instance.destroyEvent.subscribe(() => {
-          componentRefMap.get(index).destroy();
-        })
+      componentRefMap.get(index).instance.destroyEvent.subscribe(() => {
+        componentRefMap.get(index).destroy();
+      });
     });
   }
 

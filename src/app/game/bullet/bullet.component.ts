@@ -1,9 +1,8 @@
-import {Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {ICoordinates, PlayerService} from '../service/player-service';
-import {filter, first, repeat, take, takeUntil, tap} from 'rxjs/operators';
-import {Subject, Subscription, timer} from 'rxjs';
+import {filter, takeUntil, tap} from 'rxjs/operators';
 import {GameService} from '../service/game.service';
-import {AppSettings} from '../AppSettings';
+import {AppSettings} from '../../AppSettings';
 
 @Component({
   selector: 'bullet',
@@ -91,7 +90,7 @@ export class BulletComponent implements OnInit, OnDestroy {
   }
 
   checkOutOfBounds(): boolean {
-    return this.xPos <= 0 || this.xPos >= AppSettings.canvasWidth || this.yPos <= 0 || this.yPos >= AppSettings.canvasHeight
+    return this.xPos <= 0 || this.xPos >= AppSettings.canvasWidth || this.yPos <= 0 || this.yPos >= AppSettings.canvasHeight;
   }
 
   getYFromX(x: number) {
@@ -126,8 +125,8 @@ export class BulletComponent implements OnInit, OnDestroy {
 
   checkCollision() {
     return this.playerCoordinates.xPos < this.xPos + this.width &&
-    this.playerCoordinates.xPos + this.playerService.width > this.xPos &&
-    this.playerCoordinates.yPos < this.yPos + this.height &&
-    this.playerCoordinates.yPos + this.playerService.height > this.yPos
+      this.playerCoordinates.xPos + this.playerService.width > this.xPos &&
+      this.playerCoordinates.yPos < this.yPos + this.height &&
+      this.playerCoordinates.yPos + this.playerService.height > this.yPos;
   }
 }

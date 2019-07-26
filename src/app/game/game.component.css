@@ -1,0 +1,14 @@
+.canvas {
+  background-color: black;
+  opacity: 0.2;
+}
+
+.score {
+  position: absolute;
+  left: 2000px;
+}
+
+.score {
+  position: absolute;
+  left: 2100px;
+}
