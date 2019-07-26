@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "poll": 100,
             "outputPath": "dist/rxjs-meetup",
             "index": "src/index.html",
             "main": "src/main.ts",
