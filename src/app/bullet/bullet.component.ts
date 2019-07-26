@@ -28,7 +28,7 @@ export class BulletComponent implements OnInit, OnDestroy {
   public width: number = 20;
 
   constructor(private playerService: PlayerService,
-              private gameTimeService: GameService) {
+              private gameService: GameService) {
   }
 
   @Input()
@@ -52,7 +52,7 @@ export class BulletComponent implements OnInit, OnDestroy {
   }
 
   moveFromPlayer() {
-    this.gameTimeService.getGameTime()
+    this.gameService.getGameTime()
       .pipe(
         tap(() => {
           this.xPos += 20;
@@ -76,14 +76,14 @@ export class BulletComponent implements OnInit, OnDestroy {
       takeUntil(this.destroyEvent)
     ).subscribe();
 
-    this.gameTimeService.getGameTime().pipe(takeUntil(this.destroyEvent)).subscribe(() => {
+    this.gameService.getGameTime().pipe(takeUntil(this.destroyEvent)).subscribe(() => {
       this.move();
       if (this.checkCollision()) {
         this.destroyEvent.emit();
-        this.gameTimeService.addGameLives(-1);
+        this.gameService.addGameLives(-1);
       } else if (this.checkOutOfBounds()) {
         this.destroyEvent.emit();
-        this.gameTimeService.addScore(5);
+        this.gameService.addScore(5);
       }
     });
 
@@ -112,7 +112,6 @@ export class BulletComponent implements OnInit, OnDestroy {
     } else if (this.xPos < coordinates.xPos) {
       this.moveLeft = true;
     }
-
   }
 
   move() {

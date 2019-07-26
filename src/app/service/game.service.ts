@@ -44,18 +44,18 @@ export class GameService {
     );
   }
 
+  public getScore(): Observable<number> {
+    return this.gameScore$.asObservable().pipe(
+      scan((firstNumber: number, secondNumber: number) => firstNumber + secondNumber)
+    )
+  }
+
   public getGameTime(): Observable<number> {
     return this.gameTime$.asObservable();
   }
 
   public addScore(scoreIncrement: number) {
     this.gameScore$.next(scoreIncrement);
-  }
-
-  public getScore(): Observable<number> {
-    return this.gameScore$.asObservable().pipe(
-      scan((firstNumber: number, secondNumber: number) => firstNumber + secondNumber)
-    )
   }
 
 }

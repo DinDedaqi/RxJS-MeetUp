@@ -51,7 +51,6 @@ export class EnemyCharacterComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   checkCollision() {
-    console.log("kind of");
     return this.playerCoordinates.xPos < this.xPos + this.width &&
       this.playerCoordinates.xPos + this.playerService.width > this.xPos &&
       this.playerCoordinates.yPos < this.yPos + this.height &&
