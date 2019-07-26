@@ -44,25 +44,7 @@ export class BulletComponent implements OnInit, OnDestroy {
   public destroyEvent: EventEmitter<void> = new EventEmitter();
 
   ngOnInit() {
-    if (this.xPos) {
       this.moveToPlayer();
-    } else {
-      this.moveFromPlayer();
-    }
-  }
-
-  moveFromPlayer() {
-    this.gameService.getGameTime()
-      .pipe(
-        tap(() => {
-          this.xPos += 20;
-        }),
-        filter(() => this.xPos >= AppSettings.canvasWidth),
-        takeUntil(this.destroyEvent)
-      )
-      .subscribe(() => {
-        this.destroyEvent.emit();
-      });
   }
 
   moveToPlayer() {
@@ -75,18 +57,6 @@ export class BulletComponent implements OnInit, OnDestroy {
       }),
       takeUntil(this.destroyEvent)
     ).subscribe();
-
-    this.gameService.getGameTime().pipe(takeUntil(this.destroyEvent)).subscribe(() => {
-      this.move();
-      if (this.checkCollision()) {
-        this.destroyEvent.emit();
-        this.gameService.addGameLives(-1);
-      } else if (this.checkOutOfBounds()) {
-        this.destroyEvent.emit();
-        this.gameService.addScore(5);
-      }
-    });
-
 
   }
 

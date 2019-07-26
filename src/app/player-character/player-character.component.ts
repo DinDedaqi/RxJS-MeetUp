@@ -30,23 +30,6 @@ export class PlayerCharacterComponent implements OnInit {
   }
 
   ngOnInit() {
-    const componentRef: Map<number, ComponentRef<BulletComponent>> = new Map<number, ComponentRef<BulletComponent>>();
-
-    fromEvent(document, 'keydown').pipe(
-      filter((event: KeyboardEvent) => event.key === " "),
-      // nuk funksionon
-      throttleTime(1000),
-      takeUntil(fromEvent(document, 'keyup')),
-      repeat(),
-      tap((index: number) => {
-        componentRef.set(index, this.bulletFactory.createBullet(this.viewContainer, 0, this.yPos, true));
-      })
-    ).subscribe((index: number) => {
-        componentRef.get(index).instance.destroyEvent.subscribe(() => {
-          componentRef.get(index).destroy();
-        });
-    });
-
     this.width = this.playerService.width;
     this.height = this.playerService.height;
 
